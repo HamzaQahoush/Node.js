@@ -56,3 +56,12 @@ to add 404 page :
     });
 
 • same path can be used if a method is different .
+
+• to serve static files css , we use , create puplic folder and use this command in app.js
+
+`app.use(express.static(path.join(__dirname, "puplic")));`
+
+• to send static file as responses use :
+
+`const path = require('path')`
+`res.sendFile(path.join(__dirname, '..' , 'view', 'index'))`
