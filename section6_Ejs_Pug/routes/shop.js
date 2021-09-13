@@ -5,9 +5,12 @@ const adminData = require("./admin");
 
 router.get("/", (req, res, next) => {
   // res.sendFile(path.join(__dirname, "../", "views", "shop.html"));
-  res.render("shop");
-  console.log(adminData.products);
+  const products = adminData.products; // to access the array we created in admin.
+  res.render("shop", { prods: products, docTitle: "shop", path: "/" });
+
+  // console.log(adminData.products);
 });
+
 module.exports = router;
 
 /*  (./views/shop.html) => slash refers to our root folder on operating system
