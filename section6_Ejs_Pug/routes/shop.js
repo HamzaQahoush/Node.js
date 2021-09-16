@@ -6,7 +6,14 @@ const adminData = require("./admin");
 router.get("/", (req, res, next) => {
   // res.sendFile(path.join(__dirname, "../", "views", "shop.html"));
   const products = adminData.products; // to access the array we created in admin.
-  res.render("shop", { prods: products, docTitle: "shop", path: "/" });
+  res.render("shop", {
+    prods: products,
+    docTitle: "shop",
+    path: "/",
+    hasProducts: products.length > 0,
+    activeShop: true,
+    ProductCSS: true,
+  });
 
   // console.log(adminData.products);
 });

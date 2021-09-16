@@ -1,24 +1,29 @@
-const http = require("http");
 const adminData = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const bodyParser = require("body-parser");
 const path = require("path");
-// global.rootDir = path.join(__dirname);
-// const rootDir = require("../util/path");
+const express_Handlebars = require("express-handlebars");
 
-//1. after we install express , we need to import it
 const express = require("express");
-// 2. we need to intialise it as object
+
 const app = express();
-app.set("view engine", "pug");
-app.set("views", "views");
+// app.set("view engine", "pug");
 app.use(bodyParser.urlencoded({ extended: true }));
-
+// app.engine(
+//   "hbs",
+//   express_Handlebars({
+//     defaultLayout: "main-layout",
+//     extname: "hbs",
+//     layoutsDir: "views/layout/",
+//   })
+// );
+app.set("view engine", "ejs");
+app.set("views", "views");
 app.use(express.static(path.join(__dirname, "puplic")));
+
+//routes
 app.use("/admin", adminData.routes);
-
 app.use(shopRoutes);
-
 app.use((req, res, next) => {
   res.status(404).render("404", { docTitle: "page not found" });
 });
