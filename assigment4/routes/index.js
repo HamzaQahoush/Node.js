@@ -7,11 +7,11 @@ router.get("/", (req, res, next) => {
   res.render("index", { docTitle: "home" });
 });
 
-router.post("/users", (req, res, next) => {
+router.post("/add-user", (req, res, next) => {
   console.log(req.body.username);
   userNames.push({ username: req.body.username });
 
-  res.render("users", { docTitle: "users", userNames: userNames });
+  res.redirect("/users");
 });
 router.get("/users", (req, res, next) => {
   res.render("users", { docTitle: "users", userNames: userNames });
