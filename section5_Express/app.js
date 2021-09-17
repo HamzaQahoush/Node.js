@@ -1,5 +1,6 @@
 const http = require("http");
-
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
 const bodyParser = require("body-parser");
 
 //1. after we install express , we need to import it
@@ -14,21 +15,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   next(); // allows the request to continue to the next middlware in line.
 // });
 
-app.use("/add-product", (req, res, next) => {
-  console.log("I'm in another the middlware");
-  // send : function allow us to send response.
-  res.send(
-    '<form action="/product" method= "post"><input type="text" name="title" ><button type="submit">add</button></form>'
-  );
-});
+app.use("/admin", adminRoutes);
+/*
+ we can use filtering mechanism to put common starting segment for path 
+  which all routes in agiven file use to outsource that into this app.js so
+   we don't  have to repeat it with all routes .
+*/
+app.use(shopRoutes);
 
-app.post("/product", (req, res, next) => {
-  console.log(req.body.title);
-  res.redirect("/");
-});
-app.use("/", (req, res, next) => {
-  console.log("I'm in another middlware");
-  res.send("<h1> hello from express </h1>");
+app.use((req, res, next) => {
+  res.status(404).send("<h1> 404 page not found </h1>");
 });
 // const server = http.createServer(app);
 // server.listen(3000);
